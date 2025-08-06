@@ -1,0 +1,46 @@
+@model IEnumerable<UserAuthtication.Areas.Identity.Data.ApplicationUser>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<UserAuthtication.Areas.Identity.Data.ApplicationUser> UserManager
+
+<h2 class="text-2xl font-bold mb-4">User List</h2>
+
+<form method="get" asp-action="Index" class="mb-4">
+    <label for="role" class="mr-2 font-medium">Filter by Role:</label>
+    <select id="role" name="role" onchange="this.form.submit()" class="border rounded px-2 py-1">
+        <option value="">All</option>
+        @foreach (var role in ViewBag.Roles as List<string>)
+        {
+            if (ViewBag.SelectedRole == role)
+            {
+                <option value="@role" selected>@role</option>
+            }
+            else
+            {
+                <option value="@role">@role</option>
+            }
+        }
+    </select>
+</form>
+
+<table class="min-w-full bg-white border border-gray-200 rounded-lg">
+    <thead>
+        <tr>
+            <th class="px-4 py-2 border-b">Email</th>
+            <th class="px-4 py-2 border-b">First Name</th>
+            <th class="px-4 py-2 border-b">Last Name</th>
+            <th class="px-4 py-2 border-b">Roles</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model)
+    {
+        var roles = ViewBag.UserRoles[user.Id] as IList<string>;
+        <tr>
+            <td class="px-4 py-2 border-b">@user.Email</td>
+            <td class="px-4 py-2 border-b">@user.FirstName</td>
+            <td class="px-4 py-2 border-b">@user.LastName</td>
+            <td class="px-4 py-2 border-b">@string.Join(", ", roles)</td>
+        </tr>
+    }
+    </tbody>
+</table> 

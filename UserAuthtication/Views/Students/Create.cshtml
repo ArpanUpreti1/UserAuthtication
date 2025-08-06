@@ -1,0 +1,112 @@
+﻿@model UserAuthtication.Models.Student
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="min-h-screen bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header Section -->
+        <div class="mb-8">
+            <div class="flex items-center space-x-4 mb-4">
+                <a asp-action="Index"
+                   class="inline-flex items-center text-gray-600 hover:text-black transition-colors duration-200">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>
+                    Back to Students
+                </a>
+            </div>
+            <h1 class="text-4xl font-bold text-black mb-2">Create Student</h1>
+            <p class="text-gray-600">Add a new student to the registry</p>
+        </div>
+
+        <!-- Form Container -->
+        <div class="max-w-2xl">
+            <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-8">
+                <form asp-action="Create" class="space-y-6">
+                    <!-- Validation Summary -->
+                    <div asp-validation-summary="ModelOnly" class="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700 text-sm hidden" id="validation-summary">
+                        <div class="flex items-center">
+                           
+                            Please correct the following errors:
+                        </div>
+                    </div>
+
+                    <!-- Name Field -->
+                    <div class="space-y-2">
+                        <label asp-for="Name" class="block text-sm font-semibold text-gray-900">
+                            Student Name
+                        </label>
+                        <input asp-for="Name"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none transition-all duration-200 text-gray-900 placeholder-gray-500"
+                               placeholder="Enter student's full name" />
+                        <span asp-validation-for="Name" class="text-red-600 text-sm flex items-center mt-1">
+                           
+                        </span>
+                    </div>
+
+                    <!-- Course Selection -->
+                    <div class="space-y-2">
+                        <label asp-for="CourseId" class="block text-sm font-semibold text-gray-900">
+                            Course
+                        </label>
+                        <div class="relative">
+                            <select asp-for="CourseId"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none transition-all duration-200 text-gray-900 bg-white appearance-none"
+                                    asp-items="ViewBag.CourseId">
+                                <option value="">Select a course...</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                
+                            </div>
+                        </div>
+                        <span asp-validation-for="CourseId" class="text-red-600 text-sm flex items-center mt-1">
+                            
+                        </span>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+                        <a asp-action="Index"
+                           class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                           
+                            Cancel
+                        </a>
+                        <button type="submit"
+                                class="inline-flex items-center px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                          
+                            Create Student
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Help Text -->
+            <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                <div class="flex items-start">
+                    
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-900 mb-1">Information</h3>
+                        <p class="text-sm text-gray-600">
+                            Make sure to select the appropriate course for the student. You can modify this information later if needed.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Show validation summary if it has content
+        document.addEventListener('DOMContentLoaded', function () {
+            const validationSummary = document.getElementById('validation-summary');
+            if (validationSummary.children.length > 1) {
+                validationSummary.classList.remove('hidden');
+            }
+        });
+    </script>
+}

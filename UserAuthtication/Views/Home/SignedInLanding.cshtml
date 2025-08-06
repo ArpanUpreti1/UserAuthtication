@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<UserAuthtication.Areas.Identity.Data.ApplicationUser> UserManager
+@inject SignInManager<UserAuthtication.Areas.Identity.Data.ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Dashboard";
+    var userName = UserManager.GetUserName(User);
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<div class="min-h-screen flex flex-col items-center justify-center bg-black text-white">
+    <div class="max-w-2xl w-full text-center py-20">
+        <h1 class="text-4xl font-extrabold mb-4 tracking-tight">Welcome, @userName!</h1>
+        <p class="text-lg mb-10 text-gray-200">This is your dashboard for the College Management System.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+            <a asp-area="" asp-controller="Students" asp-action="Index" class="px-8 py-3 bg-white text-black font-semibold rounded-lg shadow hover:bg-gray-200 transition-colors duration-200">Manage Students</a>
+            <a asp-area="" asp-controller="Courses" asp-action="Index" class="px-8 py-3 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transition-colors duration-200">Manage Courses</a>
+            @if (isAdmin)
+            {
+                <a asp-area="" asp-controller="Users" asp-action="Index" class="px-8 py-3 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transition-colors duration-200">User List</a>
+            }
+        </div>
+        <p class="text-gray-400 text-sm">Use the navigation above to access more features.</p>
+    </div>
+</div> 

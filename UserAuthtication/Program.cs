@@ -69,7 +69,7 @@ namespace UserAuthtication
                     if (result.Succeeded)
                     {
                         userManager.AddToRoleAsync(adminUser, "Admin").Wait();
-                    }`
+                    }
                 }
             }
 
